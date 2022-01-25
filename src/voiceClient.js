@@ -1,6 +1,7 @@
 const HTTPClient = require("./http.js")
 const EventEmitter = require("./util/emitter.js")
 const { Queue } = require("./models.js")
+const {getVoiceConnection} = require("@discordjs/voice");
 
 /**
  * @typedef DiscodoAudioOptions
@@ -156,7 +157,7 @@ class VoiceClient extends EventEmitter {
 
         const Task = this.waitFor(event, ({ guild_id }) => `${guild_id}` === this.guildID, timeout)
 
-        if (this.channelID && this.client.client.channels.cache.get(this.channelID)) this.client.client.channels.cache.get(this.channelID).leave()
+        if (this.channelID && getVoiceConnection(this.client.client.channels.cache.get(this.channelID))) getVoiceConnection(this.client.client.channels.cache.get(this.channelID)).disconnect()
 
         this.send(op, data)
 

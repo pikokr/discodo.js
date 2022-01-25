@@ -40,7 +40,7 @@ class DJSClient extends EventEmitter {
          */
         this.client = client
 
-        this.nodes = new Array()
+        this.nodes = []
         this.GuildReservationMap = new Collection()
 
         this.client.on("raw", this.discordSocketResponse.bind(this))
