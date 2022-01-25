@@ -146,7 +146,7 @@ class DJSClient extends EventEmitter {
         /**
          * @type {import('discord.js').VoiceChannel}
          */
-        channel = this.client.channels.resolve(channel)
+        channel = typeof channel === "string" ? (this.client.channels.cache.get(channel) ?? await this.client.channels.fetch(channel)) : channel
 
         if (channel.type !== "voice" && channel.type !== "")
             if (!channel.guild) throw new Error()
